@@ -1,8 +1,15 @@
-@import '../variables';
+@import "../variables";
 
 .categories {
+  width: 100%;
+  overflow: auto;
+
   ul {
     display: flex;
+
+    @media (max-width: 1015px) {
+      width: 750px;
+    }
 
     li {
       background-color: #f9f9f9;
@@ -25,6 +32,13 @@
       &.active {
         background-color: #282828;
         color: #fff;
+      }
+
+      @media (max-width: 1335px) {
+        margin: 0 10px 10px 0;
+      }
+      @media (max-width: 760px) {
+        padding: 10px 22px;
       }
     }
   }
