@@ -1,19 +1,18 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { setCategory } from "../redux/filtrationSlice";
-import { selectsetCategory } from "../redux/filtrationSlice";
 
-function Categories() {
-  const dispatch = useDispatch();
-  const categories = ["Все", "Мясные", "Вегетарианская", "Гриль", "Острые", "Закрытые"];
-  let category = useSelector(selectsetCategory);
-  console.log("category", category);
-  const onClickCategory = (index) => {
-    if (index === 0) {
-      index = "";
+function Categories({ category, setCategory }) {
+  const categories = ["All", "Meat", "Vegetarian", "Grill", "Acute", "Closed"];
+
+  const onClickCategory = (i) => {
+    if (i === 0) {
+      i = "";
     }
-    dispatch(setCategory(index));
+    setCategory(i);
   };
+
+  if (category === "") {
+    category = 0;
+  }
 
   return (
     <div className="categories">

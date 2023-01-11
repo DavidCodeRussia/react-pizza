@@ -1,19 +1,42 @@
 import React from "react";
 
-function Sort() {
+function Sort({ sort, setSort }) {
+  const sortPopup = React.useRef(sort);
   const [open, setOpen] = React.useState(false);
-  const [selected, setSelected] = React.useState(0);
-  const list = ["популярности", "цене", "алфавиту"];
 
-  const onSwitchPopup = (i) => {
-    setSelected(i);
+  const list = [
+    { name: "popularity (desc)", sortProperty: "rating" },
+    { name: "popularity (asc)", sortProperty: "-rating" },
+    { name: "price (desc)", sortProperty: "price" },
+    { name: "price (asc)", sortProperty: "-price" },
+    { name: "alphabet (desc)", sortProperty: "title" },
+    { name: "alphabet (asc)", sortProperty: "-title" },
+  ];
+
+  const handleClickOutside = (e) => {
+    if (e.path.includes(sortPopup.current)) {
+      return;
+    } else {
+      setOpen(false);
+    }
+  };
+
+  React.useEffect(() => {
+    document.body.addEventListener("click", handleClickOutside);
+
+    return () => document.removeEventListener("click", handleClickOutside);
+  }, []);
+
+  const onSwitchPopup = (obj) => {
+    setSort(obj);
     setOpen(false);
   };
 
   return (
-    <div className="sort">
+    <div ref={sortPopup} className="sort">
       <div className="sort__label" onClick={() => setOpen(!open)}>
         <svg
+          className={open ? "" : "rotated"}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -24,18 +47,18 @@ function Sort() {
             fill="#2C2C2C"
           />
         </svg>
-        <b>Сортировка по:</b>
-        <span>{list[selected]}</span>
+        <b>Sort by:</b>
+        <span>{sort.name}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {list.map((name, i) => (
+            {list.map((obj, i) => (
               <li
                 key={i}
-                onClick={() => onSwitchPopup(i)}
-                className={selected === i ? "active" : ""}>
-                {name}
+                onClick={() => onSwitchPopup(obj)}
+                className={sort.name === obj.name ? "active" : ""}>
+                {obj.name}
               </li>
             ))}
           </ul>

@@ -1,7 +1,7 @@
 import React from "react";
 
 function PizzaBlock({ title, price, imageUrl, types, sizes }) {
-  const typeNames = ["тонкое", "традиционное"];
+  const typeNames = ["thin", "traditional"];
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
@@ -27,7 +27,7 @@ function PizzaBlock({ title, price, imageUrl, types, sizes }) {
                 onClick={() => setActiveSize(i)}
                 className={i === activeSize ? "active" : ""}
                 key={i}>
-                {item} см.
+                {item} inch
               </li>
             ))}
           </ul>
@@ -46,7 +46,7 @@ function PizzaBlock({ title, price, imageUrl, types, sizes }) {
                 fill="white"
               />
             </svg>
-            <span>Добавить</span>
+            <span>Add</span>
             <i>0</i>
           </button>
         </div>

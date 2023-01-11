@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function GlebGobyakovGleb() {
+function Cart() {
   return (
     <div className="container">
       <div class="cart">
@@ -32,7 +32,7 @@ export default function GlebGobyakovGleb() {
                 stroke-linecap="round"
                 stroke-linejoin="round"></path>
             </svg>
-            Корзина
+            Trash
           </h2>
           <div class="cart__clear">
             <svg
@@ -67,7 +67,7 @@ export default function GlebGobyakovGleb() {
                 stroke-linejoin="round"></path>
             </svg>
 
-            <span>Очистить корзину</span>
+            <span>Empty trash</span>
           </div>
         </div>
         <div class="content__items">
@@ -80,8 +80,8 @@ export default function GlebGobyakovGleb() {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Сырный цыпленок</h3>
-              <p>тонкое тесто, 26 см.</p>
+              <h3>Cheese chicken</h3>
+              <p>thin dough, 26 inch.</p>
             </div>
             <div class="cart__item-count">
               <div class="button button--outline button--circle cart__item-count-minus">
@@ -146,8 +146,8 @@ export default function GlebGobyakovGleb() {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Сырный цыпленок</h3>
-              <p>тонкое тесто, 26 см.</p>
+              <h3>Cheese chicken</h3>
+              <p>thin dough, 26 inch.</p>
             </div>
             <div class="cart__item-count">
               <div class="button button--outline button--circle cart__item-count-minus">
@@ -212,8 +212,8 @@ export default function GlebGobyakovGleb() {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Сырный цыпленок</h3>
-              <p>тонкое тесто, 26 см.</p>
+              <h3>Cheese chicken</h3>
+              <p>thin dough, 26 inch.</p>
             </div>
             <div class="cart__item-count">
               <div class="button button--outline button--circle cart__item-count-minus">
@@ -278,8 +278,8 @@ export default function GlebGobyakovGleb() {
               />
             </div>
             <div class="cart__item-info">
-              <h3>Сырный цыпленок</h3>
-              <p>тонкое тесто, 26 см.</p>
+              <h3>Cheese chicken</h3>
+              <p>thin dough, 26 inch.</p>
             </div>
             <div class="cart__item-count">
               <div class="button button--outline button--circle cart__item-count-minus">
@@ -340,11 +340,11 @@ export default function GlebGobyakovGleb() {
           <div class="cart__bottom-details">
             <span>
               {" "}
-              Всего пицц: <b>3 шт.</b>{" "}
+              Total pizzas: <b>3 items.</b>{" "}
             </span>
             <span>
               {" "}
-              Сумма заказа: <b>900 ₽</b>{" "}
+              Order price: <b>900 ₽</b>{" "}
             </span>
           </div>
           <div class="cart__bottom-buttons">
@@ -363,10 +363,10 @@ export default function GlebGobyakovGleb() {
                   stroke-linejoin="round"></path>
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>Come back</span>
             </Link>
             <div class="button pay-btn">
-              <span>Оплатить сейчас</span>
+              <span>Pay now</span>
             </div>
           </div>
         </div>
@@ -374,3 +374,5 @@ export default function GlebGobyakovGleb() {
     </div>
   );
 }
+
+export default Cart;
