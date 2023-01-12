@@ -2,10 +2,23 @@ import React from "react";
 
 import s from "./Search.module.scss";
 
-const Search = () => {
+const Search = ({ searchValue, setSearchValue }) => {
+  const onInputChange = (val) => {
+    setSearchValue(val.target.value);
+  };
+
+  React.useEffect(() => {
+    console.log("searchValue", searchValue);
+  }, [searchValue]);
+
   return (
     <div className={s.iconWrapper}>
-      <input className={s.search} placeholder="Поиск пиццы ..." />
+      <input
+        className={s.search}
+        value={searchValue}
+        onChange={(val) => onInputChange(val)}
+        placeholder="Поиск пиццы ..."
+      />
       <svg
         className={s.icon}
         enable-background="new 0 0 32 32"
@@ -18,6 +31,20 @@ const Search = () => {
           id="XMLID_223_"
         />
       </svg>
+      {searchValue && (
+        <svg
+          className={s.cleareIcon}
+          onClick={() => {
+            setSearchValue("");
+          }}
+          height="48"
+          viewBox="0 0 48 48"
+          width="48"
+          xmlns="http://www.w3.org/2000/svg">
+          <path d="M38 12.83l-2.83-2.83-11.17 11.17-11.17-11.17-2.83 2.83 11.17 11.17-11.17 11.17 2.83 2.83 11.17-11.17 11.17 11.17 2.83-2.83-11.17-11.17z" />
+          <path d="M0 0h48v48h-48z" fill="none" />
+        </svg>
+      )}
     </div>
   );
 };

@@ -6,9 +6,10 @@ import Sort from "../components/Sort";
 import PizzaBlock from "../components/PizzaBlock";
 import Skeleton from "../components/Skeleton";
 
-const Home = () => {
+const Home = ({ searchValue }) => {
   const [items, setItems] = React.useState([]);
-  const amountItemsForLoading = [{}, {}, {}, {}, {}, {}, {}, {}];
+  const [filteredItems, setFilteredItems] = React.useState([]);
+  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
 
   const [sort, setSort] = React.useState({
     name: "popular (desc)",
@@ -44,8 +45,15 @@ const Home = () => {
       <h2 className="content__title">All pizzas</h2>
       <div className="content__items">
         {loading
-          ? amountItemsForLoading.map((_, i) => <Skeleton key={i} />)
-          : items.map((item, index) => <PizzaBlock key={index} {...item} />)}
+          ? skeletons
+          : items
+              .filter((item) => {
+                if (item.title.toLocaleLowerCase().includes(searchValue.toLocaleLowerCase())) {
+                  return true;
+                }
+                return false;
+              })
+              .map((item, index) => <PizzaBlock key={index} {...item} />)}
       </div>
     </div>
   );

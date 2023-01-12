@@ -1,26 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  sortBy: 0,
-  category: "",
+  filteredPizzaBySearch: [],
 };
 
 const filtrationSlice = createSlice({
   name: "filtration",
   initialState,
   reducers: {
-    setSortBy: (state, action) => {
-      state.sortBy = action.payload;
-    },
-    setCategory: (state, action) => {
-      state.category = action.payload;
+    setFilteredPizzaBySearch: (state, action) => {
+      state.filteredPizzaBySearch = action.payload;
     },
   },
 });
 
-export const { setSortBy, setCategory } = filtrationSlice.actions;
+export const { setFilteredPizzaBySearch } = filtrationSlice.actions;
 
-export const selectSortBy = (state) => state.filtration.sortBy;
-export const selectsetCategory = (state) => state.filtration.category;
+export const selectFilteredPizzaBySearch = (state) => state.filtration.category;
 
 export default filtrationSlice.reducer;
