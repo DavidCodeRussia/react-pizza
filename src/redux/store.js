@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore } from '@reduxjs/toolkit';
 
-import filtrationSlice from "./filtrationSlice";
+import filtrationSlice from './slices/filtrationSlice';
 
 export default configureStore({
   reducer: {

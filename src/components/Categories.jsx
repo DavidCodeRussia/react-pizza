@@ -1,16 +1,19 @@
-import React from "react";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setCategory } from '../redux/slices/filtrationSlice';
 
-function Categories({ category, setCategory }) {
-  const categories = ["All", "Meat", "Vegetarian", "Grill", "Acute", "Closed"];
+function Categories({ category }) {
+  const dispatch = useDispatch();
+  const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed'];
 
   const onClickCategory = (i) => {
     if (i === 0) {
-      i = "";
+      i = '';
     }
-    setCategory(i);
+    dispatch(setCategory(i));
   };
 
-  if (category === "") {
+  if (category === '') {
     category = 0;
   }
 
@@ -18,7 +21,7 @@ function Categories({ category, setCategory }) {
     <div className="categories">
       <ul>
         {categories.map((item, i) => (
-          <li onClick={() => onClickCategory(i)} className={category === i ? "active" : ""} key={i}>
+          <li onClick={() => onClickCategory(i)} className={category === i ? 'active' : ''} key={i}>
             {item}
           </li>
         ))}

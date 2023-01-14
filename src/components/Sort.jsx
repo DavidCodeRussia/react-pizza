@@ -1,20 +1,23 @@
-import React from "react";
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { setSort } from '../redux/slices/filtrationSlice';
 
-function Sort({ sort, setSort }) {
+export const list = [
+  { name: 'popularity (desc)', sortBy: 'rating' },
+  { name: 'popularity (asc)', sortBy: '-rating' },
+  { name: 'price (desc)', sortBy: 'price' },
+  { name: 'price (asc)', sortBy: '-price' },
+  { name: 'alphabet (desc)', sortBy: 'title' },
+  { name: 'alphabet (asc)', sortBy: '-title' },
+];
+
+function Sort({ sort }) {
+  const disptach = useDispatch();
   const sortPopup = React.useRef(sort);
   const [open, setOpen] = React.useState(false);
 
-  const list = [
-    { name: "popularity (desc)", sortProperty: "rating" },
-    { name: "popularity (asc)", sortProperty: "-rating" },
-    { name: "price (desc)", sortProperty: "price" },
-    { name: "price (asc)", sortProperty: "-price" },
-    { name: "alphabet (desc)", sortProperty: "title" },
-    { name: "alphabet (asc)", sortProperty: "-title" },
-  ];
-
   const handleClickOutside = (e) => {
-    if (e.path.includes(sortPopup.current)) {
+    if (e.composedPath().includes(sortPopup.current)) {
       return;
     } else {
       setOpen(false);
@@ -22,13 +25,13 @@ function Sort({ sort, setSort }) {
   };
 
   React.useEffect(() => {
-    document.body.addEventListener("click", handleClickOutside);
+    document.body.addEventListener('click', handleClickOutside);
 
-    return () => document.removeEventListener("click", handleClickOutside);
+    return () => document.removeEventListener('click', handleClickOutside);
   }, []);
 
   const onSwitchPopup = (obj) => {
-    setSort(obj);
+    disptach(setSort(obj));
     setOpen(false);
   };
 
@@ -36,7 +39,7 @@ function Sort({ sort, setSort }) {
     <div ref={sortPopup} className="sort">
       <div className="sort__label" onClick={() => setOpen(!open)}>
         <svg
-          className={open ? "" : "rotated"}
+          className={open ? '' : 'rotated'}
           width="10"
           height="6"
           viewBox="0 0 10 6"
@@ -57,7 +60,7 @@ function Sort({ sort, setSort }) {
               <li
                 key={i}
                 onClick={() => onSwitchPopup(obj)}
-                className={sort.name === obj.name ? "active" : ""}>
+                className={sort.name === obj.name ? 'active' : ''}>
                 {obj.name}
               </li>
             ))}
