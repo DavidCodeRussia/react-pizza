@@ -16,7 +16,7 @@ import {
 import Categories from '../components/Categories';
 import Sort, { list } from '../components/Sort';
 import PizzaBlock from '../components/PizzaBlock';
-import Skeleton from '../components/Skeleton';
+import Skeleton from '../components/PizzaBlock/Skeleton';
 import Pagination from '../components/Pagination';
 
 const Home = () => {
