@@ -1,12 +1,13 @@
-import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { addItem } from '../../redux/slices/cartSlice';
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem, selectItemById } from "../../redux/slices/cartSlice";
 
-const typeNames = ['thin', 'traditional'];
+const typeNames = ["thin", "traditional"];
 
 function PizzaBlock({ id, title, price, sizes, imageUrl, types }) {
   const dispatch = useDispatch();
-  const count = useSelector((state) => state.cart.items.find((obj) => obj.id === id));
+  const count = useSelector(selectItemById(id));
+
   const [activeType, setActiveType] = React.useState(0);
   const [activeSize, setActiveSize] = React.useState(0);
 
@@ -34,7 +35,7 @@ function PizzaBlock({ id, title, price, sizes, imageUrl, types }) {
             {types.map((item, i) => (
               <li
                 onClick={() => setActiveType(i)}
-                className={i === activeType ? 'active' : ''}
+                className={i === activeType ? "active" : ""}
                 key={i}>
                 {typeNames[item]}
               </li>
@@ -44,7 +45,7 @@ function PizzaBlock({ id, title, price, sizes, imageUrl, types }) {
             {sizes.map((item, i) => (
               <li
                 onClick={() => setActiveSize(i)}
-                className={i === activeSize ? 'active' : ''}
+                className={i === activeSize ? "active" : ""}
                 key={i}>
                 {item} inch
               </li>

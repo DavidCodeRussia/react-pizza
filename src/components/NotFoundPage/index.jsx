@@ -1,7 +1,7 @@
 import React from "react";
-import s from "./NotFoundBlock.module.scss";
+import s from "./NotFoundPage.module.scss";
 
-const NotFoundBlock = () => {
+const NotFoundPage = () => {
   return (
     <div className={s.inner_not_found}>
       <h1>
@@ -14,4 +14,4 @@ const NotFoundBlock = () => {
   );
 };
 
-export default NotFoundBlock;
+export default NotFoundPage;

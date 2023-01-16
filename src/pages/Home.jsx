@@ -1,58 +1,55 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
-import axios from 'axios';
-import qs from 'qs';
-import { useSelector, useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import React from 'react'
+import qs from 'qs'
+import { useSelector, useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
-import { SearchContext } from '../App';
 import {
   selectCategory,
   selectSort,
   selectCurrentPage,
   setTotalFiltration,
-} from '../redux/slices/filtrationSlice';
+  selectSearchValue,
+} from '../redux/slices/filtrationSlice'
+import {
+  selectPizzas,
+  fetchPizzas,
+  selectStatus,
+} from '../redux/slices/pizzasSlice'
 
-import Categories from '../components/Categories';
-import Sort, { list } from '../components/Sort';
-import PizzaBlock from '../components/PizzaBlock';
-import Skeleton from '../components/PizzaBlock/Skeleton';
-import Pagination from '../components/Pagination';
+import Categories from '../components/Categories'
+import Sort, { list } from '../components/Sort'
+import PizzaBlock from '../components/PizzaBlock'
+import Skeleton from '../components/PizzaBlock/Skeleton'
+import Pagination from '../components/Pagination'
+import NotFoundData from '../components/NotFoundData/index'
 
 const Home = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const isSearch = React.useRef(false);
-  const isMounted = React.useRef(false);
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const isSearch = React.useRef(false)
+  const isMounted = React.useRef(false)
 
-  const sort = useSelector(selectSort);
-  const category = useSelector(selectCategory);
-  const currentPage = useSelector(selectCurrentPage);
+  const sort = useSelector(selectSort)
+  const category = useSelector(selectCategory)
+  const currentPage = useSelector(selectCurrentPage)
+  const items = useSelector(selectPizzas)
+  const status = useSelector(selectStatus)
+  const searchValue = useSelector(selectSearchValue)
 
-  const { searchValue } = React.useContext(SearchContext);
-  const [items, setItems] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
+  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />)
+  const pizzas = items.map((item, index) => (
+    <PizzaBlock key={index} {...item} />
+  ))
 
-  const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />);
-  const pizzas = items.map((item, index) => <PizzaBlock key={index} {...item} />);
+  const getPizzas = async () => {
+    const sortApi = sort.sortBy.replace('-', '')
+    const order = sort.sortBy.includes('-') ? 'asc' : 'desc'
+    const categoryId = category > 0 ? `&category=${category}` : ``
+    const search = searchValue ? `&search=${searchValue}` : ''
 
-  const fetchPizzas = () => {
-    setLoading(true);
-
-    const sortApi = sort.sortBy.replace('-', '');
-    const order = sort.sortBy.includes('-') ? 'asc' : 'desc';
-    const categoryId = category > 0 ? `&category=${category}` : ``;
-    const search = searchValue ? `&search=${searchValue}` : '';
-
-    axios
-      .get(
-        `https://63bbd74a32d17a509099ef50.mockapi.io/items?page=${currentPage}&limit=4${categoryId}&sortBy=${sortApi}&order=${order}${search}`,
-      )
-      .then((data) => {
-        setItems(data.data);
-        setLoading(false);
-      });
-  };
+    dispatch(fetchPizzas({ sortApi, order, categoryId, search, currentPage }))
+  }
 
   React.useEffect(() => {
     if (isMounted.current) {
@@ -60,29 +57,29 @@ const Home = () => {
         sortBy: sort.sortBy,
         category,
         page: currentPage,
-      });
-      navigate(`?${queryStr}`);
+      })
+      navigate(`?${queryStr}`)
     }
-    isMounted.current = true;
-  }, [category, sort.sortBy, currentPage]);
+    isMounted.current = true
+  }, [category, sort.sortBy, currentPage])
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1));
+      const params = qs.parse(window.location.search.substring(1))
 
-      const item = list.find((item) => item.sortBy === params.sortBy);
+      const item = list.find((item) => item.sortBy === params.sortBy)
 
-      dispatch(setTotalFiltration({ ...params, item }));
-      isSearch.current = true;
+      dispatch(setTotalFiltration({ ...params, item }))
+      isSearch.current = true
     }
-  }, []);
+  }, [])
 
   React.useEffect(() => {
     if (!isSearch.current) {
-      fetchPizzas();
+      getPizzas()
     }
-    isSearch.current = false;
-  }, [category, sort.sortBy, searchValue, currentPage]);
+    isSearch.current = false
+  }, [category, sort.sortBy, searchValue, currentPage])
 
   return (
     <div className="container">
@@ -92,10 +89,17 @@ const Home = () => {
         <Sort sort={sort} />
       </div>
       <h2 className="content__title">All pizzas</h2>
-      <div className="content__items">{loading ? skeletons : pizzas}</div>
+      {status === 'error' ? (
+        <NotFoundData />
+      ) : (
+        <div className="content__items">
+          {status === 'loading' ? skeletons : pizzas}
+        </div>
+      )}
+
       <Pagination currentPage={currentPage} />
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home

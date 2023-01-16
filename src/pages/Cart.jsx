@@ -1,21 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import CartItem from '../components/CartItem';
+import React from "react";
+import { Link } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import CartItem from "../components/CartItem";
 
-import CartEmpty from '../components/cartEmpty';
-import { clearItems } from '../redux/slices/cartSlice';
+import CartEmpty from "../components/cartEmpty";
+import { clearItems, selectTotalPrice, selectItems } from "../redux/slices/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
-  const { totalPrice, items } = useSelector((state) => state.cart);
+  const totalPrice = useSelector(selectTotalPrice);
+  const items = useSelector(selectItems);
 
   const totalPizzas = items.reduce((acc, item) => {
     return acc + item.count;
   }, 0);
 
   const onClearTrash = () => {
-    if (window.confirm('Are you sure that you want clear trash box?')) {
+    if (window.confirm("Are you sure that you want clear trash box?")) {
       dispatch(clearItems());
     }
   };
@@ -97,12 +98,12 @@ function Cart() {
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              {' '}
-              Total pizzas: <b>{totalPizzas} items.</b>{' '}
+              {" "}
+              Total pizzas: <b>{totalPizzas} items.</b>{" "}
             </span>
             <span>
-              {' '}
-              Order price: <b>{totalPrice} ₽</b>{' '}
+              {" "}
+              Order price: <b>{totalPrice} ₽</b>{" "}
             </span>
           </div>
           <div className="cart__bottom-buttons">
