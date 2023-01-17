@@ -7,14 +7,28 @@ import { selectTotalPrice, selectItems } from '../redux/slices/cartSlice'
 import PizzaLogo from '../assets/img/pizza-logo.svg'
 import Search from './Search'
 
-function Header() {
+const Header: React.FC = () => {
   const totalPrice = useSelector(selectTotalPrice)
   const items = useSelector(selectItems)
   const location = useLocation()
 
-  const totalPizzas = items.reduce((acc, item) => {
-    return acc + item.count
-  }, 0)
+  const totalPizzas = items.reduce(
+    (
+      acc: number,
+      item: {
+        count: number
+        id: string
+        imageUrl: string
+        price: number
+        size: number
+        title: string
+        type: string
+      }
+    ) => {
+      return acc + item.count
+    },
+    0
+  )
 
   return (
     <div className="header">

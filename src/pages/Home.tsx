@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import React from 'react'
 import qs from 'qs'
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,7 +25,15 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Pagination from '../components/Pagination'
 import NotFoundData from '../components/NotFoundData/index'
 
-const Home = () => {
+// type fetchPizzas = {
+//   sortApi: string
+//   order: string
+//   categoryId: number
+//   search: string
+//   currentPage: number
+// }
+
+const Home: React.FC = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const isSearch = React.useRef(false)
@@ -38,8 +47,8 @@ const Home = () => {
   const searchValue = useSelector(selectSearchValue)
 
   const skeletons = [...new Array(6)].map((_, i) => <Skeleton key={i} />)
-  const pizzas = items.map((item, index) => (
-    <PizzaBlock key={index} {...item} />
+  const pizzas = items.map((item: any, i: number) => (
+    <PizzaBlock key={i} {...item} />
   ))
 
   const getPizzas = async () => {
@@ -47,7 +56,7 @@ const Home = () => {
     const order = sort.sortBy.includes('-') ? 'asc' : 'desc'
     const categoryId = category > 0 ? `&category=${category}` : ``
     const search = searchValue ? `&search=${searchValue}` : ''
-
+    // @ts-ignore
     dispatch(fetchPizzas({ sortApi, order, categoryId, search, currentPage }))
   }
 
