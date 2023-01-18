@@ -6,6 +6,11 @@ type SortItem = {
   name: string
   sortBy: string
 }
+
+type OutsideClick = MouseEvent & {
+  path: Node[]
+}
+
 export const list: SortItem[] = [
   { name: 'popularity (desc)', sortBy: 'rating' },
   { name: 'popularity (asc)', sortBy: '-rating' },
@@ -27,8 +32,11 @@ const Sort: React.FC<SortComponent> = ({ sort }) => {
   const sortPopup = React.useRef<HTMLDivElement>(null)
   const [open, setOpen] = React.useState(false)
 
-  const handleClickOutside = (e: any) => {
-    if (e.composedPath().includes(sortPopup.current)) {
+  const handleClickOutside = (e: MouseEvent) => {
+    const _event = e as OutsideClick
+    const path = _event.path ?? (_event.composedPath && _event.composedPath())
+
+    if (sortPopup.current && path.includes(sortPopup.current)) {
       return
     } else {
       setOpen(false)

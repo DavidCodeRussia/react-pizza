@@ -1,6 +1,19 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { RootState } from '../store'
 
-const initialState = {
+type TSort = {
+  name: string
+  sortBy: 'rating' | '-rating' | 'price' | '-price' | 'title' | '-title'
+}
+
+type TFiltationSlice = {
+  category: string | number
+  currentPage: number
+  sort: TSort
+  searchValue: string
+}
+
+const initialState: TFiltationSlice = {
   category: '',
   currentPage: 1,
   sort: {
@@ -14,7 +27,7 @@ const filtrationSlice = createSlice({
   name: 'filtration',
   initialState,
   reducers: {
-    setCategory: (state, action) => {
+    setCategory: (state, action: PayloadAction) => {
       state.category = action.payload
     },
     setSort: (state, action) => {
@@ -35,7 +48,6 @@ const filtrationSlice = createSlice({
 })
 
 export const {
-  setFilteredPizzaBySearch,
   setCategory,
   setSort,
   setCurrentPage,
@@ -43,9 +55,11 @@ export const {
   setSearchValue,
 } = filtrationSlice.actions
 
-export const selectCategory = (state) => state.filtration.category
-export const selectSort = (state) => state.filtration.sort
-export const selectCurrentPage = (state) => state.filtration.currentPage
-export const selectSearchValue = (state) => state.filtration.searchValue
+export const selectCategory = (state: RootState) => state.filtration.category
+export const selectSort = (state: RootState) => state.filtration.sort
+export const selectCurrentPage = (state: RootState) =>
+  state.filtration.currentPage
+export const selectSearchValue = (state: RootState) =>
+  state.filtration.searchValue
 
 export default filtrationSlice.reducer

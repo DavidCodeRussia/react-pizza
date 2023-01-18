@@ -6,11 +6,11 @@ import { setCurrentPage } from '../../redux/slices/filtrationSlice'
 
 import s from './Pagination.module.scss'
 
-type Pagination = {
+type IPagination = {
   currentPage: number
 }
 
-const Pagination: React.FC<Pagination> = ({ currentPage }) => {
+const Pagination: React.FC<IPagination> = ({ currentPage }) => {
   const disptach = useDispatch()
 
   return (

@@ -1,21 +1,15 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { setCategory } from '../redux/slices/filtrationSlice'
 
 type CategoriesProps = {
   category: number | string
+  onChangeCategory: (i: number | string) => void
 }
 
-const Categories: React.FC<CategoriesProps> = ({ category }) => {
-  const dispatch = useDispatch()
+const Categories: React.FC<CategoriesProps> = ({
+  category,
+  onChangeCategory,
+}) => {
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed']
-
-  const onClickCategory = (i: number | string) => {
-    if (i === 0) {
-      i = ''
-    }
-    dispatch(setCategory(i))
-  }
 
   if (category === '') {
     category = 0
@@ -26,7 +20,7 @@ const Categories: React.FC<CategoriesProps> = ({ category }) => {
       <ul>
         {categories.map((item, i) => (
           <li
-            onClick={() => onClickCategory(i)}
+            onClick={() => onChangeCategory(i)}
             className={category === i ? 'active' : ''}
             key={i}
           >

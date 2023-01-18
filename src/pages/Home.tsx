@@ -17,6 +17,7 @@ import {
   fetchPizzas,
   selectStatus,
 } from '../redux/slices/pizzasSlice'
+import { setCategory } from '../redux/slices/filtrationSlice'
 
 import Categories from '../components/Categories'
 import Sort, { list } from '../components/Sort'
@@ -60,6 +61,13 @@ const Home: React.FC = () => {
     dispatch(fetchPizzas({ sortApi, order, categoryId, search, currentPage }))
   }
 
+  const onChangeCategory = (i: number | string) => {
+    if (i === 0) {
+      i = ''
+    }
+    dispatch(setCategory(i))
+  }
+
   React.useEffect(() => {
     if (isMounted.current) {
       const queryStr = qs.stringify({
@@ -93,7 +101,7 @@ const Home: React.FC = () => {
   return (
     <div className="container">
       <div className="content__top">
-        <Categories category={category} />
+        <Categories category={category} onChangeCategory={onChangeCategory} />
 
         <Sort sort={sort} />
       </div>
