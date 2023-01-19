@@ -2,7 +2,7 @@
 
 import React from 'react'
 import qs from 'qs'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
 import {
@@ -16,8 +16,10 @@ import {
   selectPizzas,
   fetchPizzas,
   selectStatus,
+  TParamsSearchPizza,
 } from '../redux/slices/pizzasSlice'
 import { setCategory } from '../redux/slices/filtrationSlice'
+import { useAppDispatch } from '../redux/store'
 
 import Categories from '../components/Categories'
 import Sort, { list } from '../components/Sort'
@@ -27,7 +29,7 @@ import Pagination from '../components/Pagination'
 import NotFoundData from '../components/NotFoundData/index'
 
 // type fetchPizzas = {
-//   sortApi: string
+//   sortBy: string
 //   order: string
 //   categoryId: number
 //   search: string
@@ -35,7 +37,7 @@ import NotFoundData from '../components/NotFoundData/index'
 // }
 
 const Home: React.FC = () => {
-  const dispatch = useDispatch()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const isSearch = React.useRef(false)
   const isMounted = React.useRef(false)
@@ -53,12 +55,20 @@ const Home: React.FC = () => {
   ))
 
   const getPizzas = async () => {
-    const sortApi = sort.sortBy.replace('-', '')
+    const sortBy = sort.sortBy.replace('-', '')
     const order = sort.sortBy.includes('-') ? 'asc' : 'desc'
     const categoryId = category > 0 ? `&category=${category}` : ``
     const search = searchValue ? `&search=${searchValue}` : ''
-    // @ts-ignore
-    dispatch(fetchPizzas({ sortApi, order, categoryId, search, currentPage }))
+
+    dispatch(
+      fetchPizzas({
+        sortBy,
+        order,
+        categoryId,
+        search,
+        currentPage: String(currentPage),
+      })
+    )
   }
 
   const onChangeCategory = (i: number | string) => {
@@ -71,9 +81,9 @@ const Home: React.FC = () => {
   React.useEffect(() => {
     if (isMounted.current) {
       const queryStr = qs.stringify({
-        sortBy: sort.sortBy,
+        sort: sort.sortBy,
         category,
-        page: currentPage,
+        currentPage: currentPage,
       })
       navigate(`?${queryStr}`)
     }
@@ -82,11 +92,15 @@ const Home: React.FC = () => {
 
   React.useEffect(() => {
     if (window.location.search) {
-      const params = qs.parse(window.location.search.substring(1))
+      const params = qs.parse(
+        window.location.search.substring(1)
+      ) as unknown as TParamsSearchPizza
 
-      const item = list.find((item) => item.sortBy === params.sortBy)
+      const sortBy = list.find((item) => item.sortBy === params.sortBy)
 
-      dispatch(setTotalFiltration({ ...params, item }))
+      if (sort) {
+        dispatch(setTotalFiltration({ ...params, sort }))
+      }
       isSearch.current = true
     }
   }, [])

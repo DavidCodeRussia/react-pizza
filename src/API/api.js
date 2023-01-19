@@ -1,18 +1,20 @@
-import * as axios from "axios";
+import * as axios from 'axios'
 
 const instance = axios.default.create({
   withCredentials: true,
-  baseURL: "https://63bbd74a32d17a509099ef50.mockapi.io/",
+  baseURL: 'https://63bbd74a32d17a509099ef50.mockapi.io/',
   headers: {
-    "X-RapidAPI-Key": "",
-    "X-RapidAPI-Host": "",
+    'X-RapidAPI-Key': '',
+    'X-RapidAPI-Host': '',
   },
-});
+})
 
 export const PizzaAPI = {
-  getPizza(category, sortApi) {
+  getPizza(category, sortBy) {
     return instance.get(
-      `items?${category ? `category=${category}` : ``}&sortBy=${sortApi}&order=desc`,
-    );
+      `items?${
+        category ? `category=${category}` : ``
+      }&sortBy=${sortBy}&order=desc`
+    )
   },
-};
+}

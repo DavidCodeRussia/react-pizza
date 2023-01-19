@@ -1,4 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
 
 import filtrationSlice from './slices/filtrationSlice'
 import cartSlice from './slices/cartSlice'
@@ -16,3 +17,5 @@ export const store = configureStore({
 type FuncType = typeof store.getState
 
 export type RootState = ReturnType<FuncType>
+type AppDispatch = typeof store.dispatch
+export const useAppDispatch: () => AppDispatch = useDispatch

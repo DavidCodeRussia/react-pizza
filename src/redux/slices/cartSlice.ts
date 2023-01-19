@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { RootState } from '../store'
 
-type TCardItem = {
+export type TCardItem = {
   id: string
   title: string
   price: number

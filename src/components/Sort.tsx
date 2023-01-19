@@ -1,10 +1,10 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { setSort } from '../redux/slices/filtrationSlice'
+import { setSort, ESortBy } from '../redux/slices/filtrationSlice'
 
 type SortItem = {
   name: string
-  sortBy: string
+  sortBy: ESortBy
 }
 
 type OutsideClick = MouseEvent & {
@@ -12,12 +12,12 @@ type OutsideClick = MouseEvent & {
 }
 
 export const list: SortItem[] = [
-  { name: 'popularity (desc)', sortBy: 'rating' },
-  { name: 'popularity (asc)', sortBy: '-rating' },
-  { name: 'price (desc)', sortBy: 'price' },
-  { name: 'price (asc)', sortBy: '-price' },
-  { name: 'alphabet (desc)', sortBy: 'title' },
-  { name: 'alphabet (asc)', sortBy: '-title' },
+  { name: 'popularity (desc)', sortBy: ESortBy.RATING_DESC },
+  { name: 'popularity (asc)', sortBy: ESortBy.RATING_ASC },
+  { name: 'price (desc)', sortBy: ESortBy.PRICE_DESC },
+  { name: 'price (asc)', sortBy: ESortBy.PRICE_ASC },
+  { name: 'alphabet (desc)', sortBy: ESortBy.TITLE_DESC },
+  { name: 'alphabet (asc)', sortBy: ESortBy.TITLE_ASC },
 ]
 
 type SortComponent = {
