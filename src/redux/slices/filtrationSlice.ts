@@ -15,14 +15,14 @@ export type TSort = {
   sortBy: ESortBy
 }
 
-export type TFiltration = {
-  searchValue: string
+export type IFiltration = {
   category: string | number
   currentPage: number
   sort: TSort
+  searchValue: string
 }
 
-const initialState: TFiltration = {
+const initialState: IFiltration = {
   category: '',
   currentPage: 1,
   sort: {
@@ -48,7 +48,7 @@ const filtrationSlice = createSlice({
     setSearchValue: (state, action: PayloadAction<string>) => {
       state.searchValue = action.payload
     },
-    setTotalFiltration: (state, action: PayloadAction<TFiltration>) => {
+    setTotalFiltration: (state, action: PayloadAction<IFiltration>) => {
       state.category = Number(action.payload.category)
       state.currentPage = Number(action.payload.currentPage)
       state.sort = action.payload.sort

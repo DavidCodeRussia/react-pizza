@@ -28,14 +28,6 @@ import Skeleton from '../components/PizzaBlock/Skeleton'
 import Pagination from '../components/Pagination'
 import NotFoundData from '../components/NotFoundData/index'
 
-// type fetchPizzas = {
-//   sortBy: string
-//   order: string
-//   categoryId: number
-//   search: string
-//   currentPage: number
-// }
-
 const Home: React.FC = () => {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
@@ -96,11 +88,17 @@ const Home: React.FC = () => {
         window.location.search.substring(1)
       ) as unknown as TParamsSearchPizza
 
-      const sortBy = list.find((item) => item.sortBy === params.sortBy)
+      const sort = list.find((item) => item.sortBy === params.sortBy)
 
-      if (sort) {
-        dispatch(setTotalFiltration({ ...params, sort }))
-      }
+      dispatch(
+        setTotalFiltration({
+          category: params.categoryId,
+          currentPage: Number(params.currentPage),
+          searchValue: params.search,
+          sort: sort || list[0],
+        })
+      )
+
       isSearch.current = true
     }
   }, [])

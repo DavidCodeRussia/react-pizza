@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import axios from 'axios'
-import { ESortBy } from './filtrationSlice'
 import { RootState } from '../store'
 
 export enum Status {

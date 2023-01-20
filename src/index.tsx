@@ -5,7 +5,7 @@ import { BrowserRouter } from 'react-router-dom'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import './index.css'
-import store from './redux/store.js'
+import { store } from './redux/store'
 
 const rootElem = document.getElementById('root')
 if (rootElem) {

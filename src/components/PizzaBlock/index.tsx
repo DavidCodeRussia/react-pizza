@@ -38,6 +38,7 @@ const PizzaBlock: React.FC<PizzaBlockProps> = ({
       imageUrl,
       type: typeNames[activeType],
       size: sizes[activeSize],
+      count: addedCount, // тут может быть баг, проверить.
     }
     dispatch(addItem(item))
   }

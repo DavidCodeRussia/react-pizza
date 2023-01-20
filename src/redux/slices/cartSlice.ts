@@ -6,7 +6,7 @@ export type TCardItem = {
   title: string
   price: number
   imageUrl: string
-  type: number
+  type: string
   size: number
   count: number
 }
@@ -39,13 +39,12 @@ const cartSlice = createSlice({
       )
     },
     removeItem: (state, action: PayloadAction<string>) => {
-      const removedPackOfPizzas = state.items.filter(
-        (obj) => obj.id === action.payload
-      )
-      const totalPricePack =
-        removedPackOfPizzas.price * removedPackOfPizzas.count
+      // const removedPackOfPizzas = state.items.filter(
+      //   (obj) => obj.id === action.payload
+      // )
+      // const totalPricePack = removedPackOfPizzas.price * removedPackOfPizzas.count;/
       state.items = state.items.filter((obj) => obj.id !== action.payload)
-      state.totalPrice = state.totalPrice - totalPricePack
+      // state.totalPrice = state.totalPrice - totalPricePack
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find((obj) => obj.id === action.payload)

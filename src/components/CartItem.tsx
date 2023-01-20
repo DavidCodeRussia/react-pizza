@@ -1,6 +1,12 @@
 import React from 'react'
+import clsx from 'clsx'
 import { useDispatch } from 'react-redux'
-import { addItem, minusItem, removeItem } from '../redux/slices/cartSlice'
+import {
+  addItem,
+  minusItem,
+  removeItem,
+  TCardItem,
+} from '../redux/slices/cartSlice'
 
 type CartProps = {
   id: string
@@ -24,11 +30,13 @@ const CartItem: React.FC<CartProps> = ({
   const dispatch = useDispatch()
 
   const onPlusPizza = () => {
-    dispatch(addItem({ id }))
+    dispatch(addItem({ id } as TCardItem))
   }
 
   const onMinusPizza = () => {
-    dispatch(minusItem(id))
+    if (count >= 2) {
+      dispatch(minusItem(id))
+    }
   }
 
   const onRemovePizza = () => {
@@ -49,9 +57,12 @@ const CartItem: React.FC<CartProps> = ({
         </p>
       </div>
       <div className="cart__item-count">
-        <div
+        <button
+          disabled={count <= 1}
           onClick={onMinusPizza}
-          className="button button--outline button--circle cart__item-count-minus"
+          className={
+            'button button--outline button--circle cart__item-count-minus'
+          }
         >
           <svg
             width="10"
@@ -69,7 +80,7 @@ const CartItem: React.FC<CartProps> = ({
               fill="#EB5A1E"
             ></path>
           </svg>
-        </div>
+        </button>
         <b>{count}</b>
         <div
           onClick={onPlusPizza}
