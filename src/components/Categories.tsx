@@ -1,15 +1,20 @@
-import React from 'react'
+import { useSelector } from 'react-redux'
 
-type CategoriesProps = {
-  category: number | string
-  onChangeCategory: (i: number | string) => void
-}
+import { useAppDispatch } from '../redux/store'
+import { setCategory } from '../redux/slices/filtrationSlice'
+import { selectCategory } from '../redux/slices/filtrationSlice'
 
-const Categories: React.FC<CategoriesProps> = ({
-  category,
-  onChangeCategory,
-}) => {
+const Categories = () => {
+  const dispatch = useAppDispatch()
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed']
+
+  let category = useSelector(selectCategory)
+  const onChangeCategory = (i: number | string) => {
+    if (i === 0) {
+      i = ''
+    }
+    dispatch(setCategory(i))
+  }
 
   if (category === '') {
     category = 0

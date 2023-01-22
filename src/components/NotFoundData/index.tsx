@@ -6,11 +6,9 @@ const NotFoundData: React.FC = () => (
     <h1>
       <span>😕</span>
       <br />
-      Ничего не найдено
+      Nothing found
     </h1>
-    <p className={s.description}>
-      Не удалось подгрузить данные для данной страницы.
-    </p>
+    <p className={s.description}>Failed to load data for this page.</p>
   </div>
 )
 

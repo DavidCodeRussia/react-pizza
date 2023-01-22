@@ -1,6 +1,14 @@
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+
 import { setSort, ESortBy } from '../redux/slices/filtrationSlice'
+import {
+  selectCategory,
+  selectSort,
+  selectCurrentPage,
+  setTotalFiltration,
+  selectSearchValue,
+} from '../redux/slices/filtrationSlice'
 
 type SortItem = {
   name: string
@@ -20,17 +28,11 @@ export const list: SortItem[] = [
   { name: 'alphabet (asc)', sortBy: ESortBy.TITLE_ASC },
 ]
 
-type SortComponent = {
-  sort: {
-    name: string
-    sortBy: string
-  }
-}
-
-const Sort: React.FC<SortComponent> = ({ sort }) => {
+const Sort = () => {
   const disptach = useDispatch()
   const sortPopup = React.useRef<HTMLDivElement>(null)
   const [open, setOpen] = React.useState(false)
+  const sort = useSelector(selectSort)
 
   const handleClickOutside = (e: MouseEvent) => {
     const _event = e as OutsideClick

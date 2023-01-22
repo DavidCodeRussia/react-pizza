@@ -1,8 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react'
-import { useDispatch } from 'react-redux'
+import qs from 'qs'
+import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import debounce from 'lodash.debounce'
 
+import {
+  selectCategory,
+  selectSort,
+  selectCurrentPage,
+  selectSearchValue,
+} from '../../redux/slices/filtrationSlice'
 import { setSearchValue } from '../../redux/slices/filtrationSlice'
 
 import s from './Search.module.scss'
@@ -30,6 +38,27 @@ const Search: React.FC = () => {
     setValue(event.target.value)
     updateSearchValue(event.target.value)
   }
+
+  const navigate = useNavigate()
+  const isMounted = React.useRef(false)
+
+  const sort = useSelector(selectSort)
+  const category = useSelector(selectCategory)
+  const currentPage = useSelector(selectCurrentPage)
+  const searchValue = useSelector(selectSearchValue)
+
+  React.useEffect(() => {
+    if (isMounted.current) {
+      const queryStr = qs.stringify({
+        sort: sort.sortBy,
+        category,
+        currentPage: currentPage,
+        searchValue,
+      })
+      navigate(`?${queryStr}`)
+    }
+    isMounted.current = true
+  }, [category, sort.sortBy, currentPage, searchValue])
 
   return (
     <div className={s.iconWrapper}>
