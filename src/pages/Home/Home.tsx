@@ -2,9 +2,7 @@
 
 import React from 'react'
 
-import Categories from '../../components/Categories'
-import Sort from '../../components/Sort'
-import Pagination from '../../components/Pagination'
+import { Categories, Sort, Pagination } from '../../components'
 import Pizzas from './Pizzas/Pizzas'
 
 const Home: React.FC = () => {
