@@ -6,16 +6,16 @@ import { list } from '../../../components/Sort'
 import {
   selectStatus,
   selectPizzas,
-  fetchPizzas,
-  TParamsSearchPizza,
-} from '../../../redux/slices/pizzasSlice'
+} from '../../../redux/slices/pizza/selectors'
+import { fetchPizzas } from '../../../redux/slices/pizza/asyncActions'
+import { TParamsSearchPizza } from '../../../redux/slices/pizza/types'
 import {
   selectCategory,
   selectSort,
   selectCurrentPage,
-  setTotalFiltration,
   selectSearchValue,
-} from '../../../redux/slices/filtrationSlice'
+} from '../../../redux/slices/filter/selectors'
+import { setTotalFiltration } from '../../../redux/slices/filter/slices'
 import { useAppDispatch } from '../../../redux/store'
 import NotFoundData from '../../../components/NotFoundData/index'
 import PizzaBlock from '../../../components/PizzaBlock'

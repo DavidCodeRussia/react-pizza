@@ -10,8 +10,8 @@ import {
   selectSort,
   selectCurrentPage,
   selectSearchValue,
-} from '../../redux/slices/filtrationSlice'
-import { setSearchValue } from '../../redux/slices/filtrationSlice'
+} from '../../redux/slices/filter/selectors'
+import { setSearchValue } from '../../redux/slices/filter/slices'
 
 import s from './Search.module.scss'
 

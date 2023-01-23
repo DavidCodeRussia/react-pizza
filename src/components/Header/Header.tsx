@@ -5,7 +5,7 @@ import {
   selectItems,
   selectTotalPrice,
   selectTotalPizzas,
-} from '../../redux/slices/cartSlice'
+} from '../../redux/slices/cart/selectors'
 import PizzaLogo from '../../assets/img/pizza-logo.svg'
 import Search from '../Search'
 import TotalPizzas from './TotalPizzas/TotalPizzas'

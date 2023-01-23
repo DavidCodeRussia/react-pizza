@@ -1,7 +1,8 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { addItem, selectItemById } from '../../redux/slices/cartSlice'
+import { addItem } from '../../redux/slices/cart/slices'
+import { selectItemById } from '../../redux/slices/cart/selectors'
 
 const typeNames = ['thin', 'traditional']
 

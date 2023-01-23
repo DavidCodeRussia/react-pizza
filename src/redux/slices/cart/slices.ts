@@ -7,7 +7,7 @@ const { totalPrice, totalPizzas, pizzas } = getCartFromLS()
 const initialState: ICartSlice = {
   totalPrice,
   totalPizzas,
-  items: pizzas,
+  items: pizzas?.length >= 0 ? pizzas : [],
 }
 
 const cartSlice = createSlice({
@@ -30,21 +30,24 @@ const cartSlice = createSlice({
       state.totalPizzas = state.items.reduce((acc, obj) => acc + obj.count, 0)
     },
     removeItem: (state, action: PayloadAction<string>) => {
-      // const removedPackOfPizzas = state.items.filter(
-      //   (obj) => obj.id === action.payload
-      // )
-      // const totalPricePack = removedPackOfPizzas.price * removedPackOfPizzas.count;/
+      const removedPackOfPizzas = state.items.filter(
+        (obj) => obj.id === action.payload
+      )
+
+      const totalPricePack =
+        removedPackOfPizzas[0].price * removedPackOfPizzas[0].count
+
       state.items = state.items.filter((obj) => obj.id !== action.payload)
       state.totalPizzas = state.items.reduce((acc, obj) => acc + obj.count, 0)
-      // state.totalPrice = state.totalPrice - totalPricePack
+      state.totalPrice = state.totalPrice - totalPricePack
     },
     minusItem(state, action: PayloadAction<string>) {
       const findItem = state.items.find((obj) => obj.id === action.payload)
       if (findItem) {
         findItem.count--
         state.totalPrice = state.totalPrice - findItem.price
+        state.totalPizzas = state.items.reduce((acc, obj) => acc + obj.count, 0)
       }
-      state.totalPizzas = state.items.reduce((acc, obj) => acc + obj.count, 0)
     },
     clearItems: (state) => {
       state.items = []

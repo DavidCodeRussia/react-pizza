@@ -2,11 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
-import {
-  clearItems,
-  selectTotalPrice,
-  selectItems,
-} from '../redux/slices/cartSlice'
+import { clearItems } from '../redux/slices/cart/slices'
+import { selectTotalPrice, selectItems } from '../redux/slices/cart/selectors'
+
 import CartItem from '../components/CartItem'
 import CartEmpty from '../components/CartEmpty'
 

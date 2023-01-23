@@ -1,26 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { RootState } from '../store'
-
-export enum ESortBy {
-  RATING_DESC = 'rating',
-  RATING_ASC = '-rating',
-  PRICE_DESC = 'price',
-  PRICE_ASC = '-price',
-  TITLE_DESC = 'title',
-  TITLE_ASC = '-title',
-}
-
-export type TSort = {
-  name: string
-  sortBy: ESortBy
-}
-
-export type IFiltration = {
-  category: string | number
-  currentPage: number
-  sort: TSort
-  searchValue: string
-}
+import { ESortBy, IFiltration, TSort } from '../filter/types'
 
 const initialState: IFiltration = {
   category: '',
@@ -63,12 +42,5 @@ export const {
   setTotalFiltration,
   setSearchValue,
 } = filtrationSlice.actions
-
-export const selectCategory = (state: RootState) => state.filtration.category
-export const selectSort = (state: RootState) => state.filtration.sort
-export const selectCurrentPage = (state: RootState) =>
-  state.filtration.currentPage
-export const selectSearchValue = (state: RootState) =>
-  state.filtration.searchValue
 
 export default filtrationSlice.reducer

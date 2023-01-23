@@ -1,8 +1,8 @@
 import { useSelector } from 'react-redux'
 
 import { useAppDispatch } from '../redux/store'
-import { setCategory } from '../redux/slices/filtrationSlice'
-import { selectCategory } from '../redux/slices/filtrationSlice'
+import { setCategory } from '../redux/slices/filter/slices'
+import { selectCategory } from '../redux/slices/filter/selectors'
 
 const Categories = () => {
   const dispatch = useAppDispatch()

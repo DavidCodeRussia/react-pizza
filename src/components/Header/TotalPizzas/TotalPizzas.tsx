@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import {
   selectTotalPrice,
   selectTotalPizzas,
-} from '../../../redux/slices/cartSlice'
+} from '../../../redux/slices/cart/selectors'
 
 const TotalPizzas = () => {
   const location = useLocation()

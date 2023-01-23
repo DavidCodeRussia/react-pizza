@@ -1,14 +1,9 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-import { setSort, ESortBy } from '../redux/slices/filtrationSlice'
-import {
-  selectCategory,
-  selectSort,
-  selectCurrentPage,
-  setTotalFiltration,
-  selectSearchValue,
-} from '../redux/slices/filtrationSlice'
+import { setSort } from '../redux/slices/filter/slices'
+import { selectSort } from '../redux/slices/filter/selectors'
+import { ESortBy } from '../redux/slices/filter/types'
 
 type SortItem = {
   name: string
