@@ -1,7 +1,7 @@
 import React from 'react'
 import s from './NotFoundPage.module.scss'
 
-const NotFoundPage: React.FC = () => (
+export const NotFoundPage: React.FC = () => (
   <div className={s.inner_not_found}>
     <h1>
       <span>😕</span>
@@ -13,5 +13,3 @@ const NotFoundPage: React.FC = () => (
     </p>
   </div>
 )
-
-export default NotFoundPage

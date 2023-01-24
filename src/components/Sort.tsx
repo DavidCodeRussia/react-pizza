@@ -23,7 +23,7 @@ export const list: SortItem[] = [
   { name: 'alphabet (asc)', sortBy: ESortBy.TITLE_ASC },
 ]
 
-const Sort = () => {
+export const Sort = () => {
   const disptach = useDispatch()
   const sortPopup = React.useRef<HTMLDivElement>(null)
   const [open, setOpen] = React.useState(false)
@@ -88,5 +88,3 @@ const Sort = () => {
     </div>
   )
 }
-
-export default Sort

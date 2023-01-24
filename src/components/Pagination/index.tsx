@@ -6,7 +6,7 @@ import { selectCurrentPage } from '../../redux/slices/filter/selectors'
 
 import s from './Pagination.module.scss'
 
-const Pagination = () => {
+export const Pagination = () => {
   const disptach = useDispatch()
   const currentPage = useSelector(selectCurrentPage)
 
@@ -23,5 +23,3 @@ const Pagination = () => {
     />
   )
 }
-
-export default Pagination

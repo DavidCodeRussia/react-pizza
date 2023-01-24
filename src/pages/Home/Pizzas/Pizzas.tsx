@@ -17,9 +17,7 @@ import {
 } from '../../../redux/slices/filter/selectors'
 import { setTotalFiltration } from '../../../redux/slices/filter/slices'
 import { useAppDispatch } from '../../../redux/store'
-import NotFoundData from '../../../components/NotFoundData/index'
-import PizzaBlock from '../../../components/PizzaBlock'
-import Skeleton from '../../../components/PizzaBlock/Skeleton'
+import { Skeleton, PizzaBlock, NotFoundData } from '../../../components'
 
 const Pizzas = () => {
   const dispatch = useAppDispatch()

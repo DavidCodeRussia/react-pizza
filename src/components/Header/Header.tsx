@@ -7,10 +7,10 @@ import {
   selectTotalPizzas,
 } from '../../redux/slices/cart/selectors'
 import PizzaLogo from '../../assets/img/pizza-logo.svg'
-import Search from '../Search'
+import { Search } from '../Search'
 import TotalPizzas from './TotalPizzas/TotalPizzas'
 
-const Header: React.FC = () => {
+export const Header: React.FC = () => {
   const location = useLocation()
   const itemsInBucket = useSelector(selectItems)
   const totalPrice = useSelector(selectTotalPrice)
@@ -47,5 +47,3 @@ const Header: React.FC = () => {
     </div>
   )
 }
-
-export default Header

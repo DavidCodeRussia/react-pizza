@@ -4,7 +4,7 @@ import { useAppDispatch } from '../redux/store'
 import { setCategory } from '../redux/slices/filter/slices'
 import { selectCategory } from '../redux/slices/filter/selectors'
 
-const Categories = () => {
+export const Categories = () => {
   const dispatch = useAppDispatch()
   const categories = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed']
 
@@ -36,5 +36,3 @@ const Categories = () => {
     </div>
   )
 }
-
-export default Categories
